@@ -22,7 +22,11 @@ jobs:
       - name: Generate Horoscopes via Gemini AI
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: python update_horoscopes.py
+        run: |
+          # Bulunduğumuz dizini ve dosyaları listeleyip kontrol edelim
+          pwd
+          ls -la
+          python update_horoscopes.py
 
       - name: Commit and Push Updated Horoscopes
         run: |
