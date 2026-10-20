@@ -1,0 +1,113 @@
+﻿{
+  "lastUpdated": "2026-10-20",
+  "signs": {
+    "aries": {
+      "name": "Aries",
+      "dates": "Mar 21 - Apr 19",
+      "element": "Fire",
+      "symbol": "♈",
+      "daily": "Today brings dynamic energy and fresh inspiration. Trust your instincts when taking on new challenges.",
+      "weekly": "This week focuses on career expansion and bold decision-making. Your leadership skills will shine.",
+      "monthly": "A transformative month for personal growth and financial opportunities. Embrace incoming cosmic shifts."
+    },
+    "taurus": {
+      "name": "Taurus",
+      "dates": "Apr 20 - May 20",
+      "element": "Earth",
+      "symbol": "♉",
+      "daily": "Focus on grounding your routine today. Financial clarity is emerging from recent steady efforts.",
+      "weekly": "Relationships take center stage this week. Open communication resolves long-standing misunderstandings.",
+      "monthly": "A stable month for long-term investments and building lasting bonds. Stay patient and practical."
+    },
+    "gemini": {
+      "name": "Gemini",
+      "dates": "May 21 - Jun 20",
+      "element": "Air",
+      "symbol": "♊",
+      "daily": "Your mind is vibrant and full of innovative ideas. Share your thoughts with trusted peers today.",
+      "weekly": "Networking and social connections unlock unexpected doors this week. Stay curious and versatile.",
+      "monthly": "A month of mental breakthroughs, learning, and creative projects. Express yourself freely."
+    },
+    "cancer": {
+      "name": "Cancer",
+      "dates": "Jun 21 - Jul 22",
+      "element": "Water",
+      "symbol": "♋",
+      "daily": "Listen to your emotional intuition today. Nurturing your home environment brings deep peace.",
+      "weekly": "Focus on self-care and setting healthy boundaries in personal relationships this week.",
+      "monthly": "A deeply intuitive month highlighting family harmony, emotional healing, and inner strength."
+    },
+    "leo": {
+      "name": "Leo",
+      "dates": "Jul 23 - Aug 22",
+      "element": "Fire",
+      "symbol": "♌",
+      "daily": "Your charisma shines brightly today. Take center stage and inspire those around you.",
+      "weekly": "Creative endeavors and passion projects flourish this week. Confidence opens new doors.",
+      "monthly": "A triumphant month for personal achievements, public recognition, and romantic warmth."
+    },
+    "virgo": {
+      "name": "Virgo",
+      "dates": "Aug 23 - Sep 22",
+      "element": "Earth",
+      "symbol": "♍",
+      "daily": "Pay attention to small details in your work today. A methodical approach brings clarity.",
+      "weekly": "Health routines and career organization are highlighted this week. Balance effort with rest.",
+      "monthly": "A productive month for refining goals, mastering new skills, and organizing your priorities."
+    },
+    "libra": {
+      "name": "Libra",
+      "dates": "Sep 23 - Oct 22",
+      "element": "Air",
+      "symbol": "♎",
+      "daily": "Seek harmony and balance in your interactions today. A diplomatic response resolves tension.",
+      "weekly": "Artistic inspiration and romantic harmony flow through your week. Embrace collaboration.",
+      "monthly": "A harmonious month for forging strong partnerships and refining aesthetic projects."
+    },
+    "scorpio": {
+      "name": "Scorpio",
+      "dates": "Oct 23 - Nov 21",
+      "element": "Water",
+      "symbol": "♏",
+      "daily": "Your inner perception is heightened today. Look beneath the surface to find absolute truth.",
+      "weekly": "Deep emotional healing and transformative insights guide your career and personal choices this week.",
+      "monthly": "A powerful month for shedding old habits and stepping into personal agency and passion."
+    },
+    "sagittarius": {
+      "name": "Sagittarius",
+      "dates": "Nov 22 - Dec 21",
+      "element": "Fire",
+      "symbol": "♐",
+      "daily": "Embrace adventure and new learning opportunities today. An open mind invites good fortune.",
+      "weekly": "Travel plans, educational pursuits, and philosophical conversations take priority this week.",
+      "monthly": "A expansive month for broadening horizons, embarking on trips, and seeking truth."
+    },
+    "capricorn": {
+      "name": "Capricorn",
+      "dates": "Dec 22 - Jan 19",
+      "element": "Earth",
+      "symbol": "♑",
+      "daily": "Stay disciplined on your long-term goals today. Your persistence is laying solid groundwork.",
+      "weekly": "Financial planning and professional achievements reward your hard work this week.",
+      "monthly": "A milestone month for career advancement, structure, and realizing long-sought ambitions."
+    },
+    "aquarius": {
+      "name": "Aquarius",
+      "dates": "Jan 20 - Feb 18",
+      "element": "Air",
+      "symbol": "♒",
+      "daily": "Innovative ideas flow effortlessly today. Think outside the box and embrace your uniqueness.",
+      "weekly": "Community involvement and collaborative humanitarian projects inspire you this week.",
+      "monthly": "A visionary month for launching unconventional projects and connecting with like-minded souls."
+    },
+    "pisces": {
+      "name": "Pisces",
+      "dates": "Feb 19 - Mar 20",
+      "element": "Water",
+      "symbol": "♓",
+      "daily": "Your imaginative and empathetic energies are strong today. Trust your artistic dreams.",
+      "weekly": "Spiritual practice, creative expression, and emotional reflection bring deep healing this week.",
+      "monthly": "A dreamy and creative month filled with spiritual alignment, artistic breakthroughs, and compassion."
+    }
+  }
+}

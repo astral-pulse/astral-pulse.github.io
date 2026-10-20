@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zodiac Compatibility - AstralPulse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="navbar">
+        <div class="logo">
+            <h1><a href="index.html" style="color: inherit; text-decoration: none;">AstralPulse</a></h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="tarot.html">Tarot</a></li>
+                <li><a href="horoscopes.html">Horoscopes</a></li>
+                <li><a href="compatibility.html">Compatibility</a></li>
+                <li><a href="birthchart.html">Birth Chart</a></li>
+                <li><a href="chat.html">Oracle Chat</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Hero Section -->
+    <section class="hero">
+        <h2>Zodiac Compatibility Matcher</h2>
+        <p>Discover the cosmic chemistry, romantic synergy, and elemental harmony between signs.</p>
+    </section>
+
+    <!-- Compatibility Form Section -->
+    <main class="container">
+        <div class="section-title">
+            <h2>Select Both Signs</h2>
+            <p>Choose your zodiac sign and your partner's sign to test your celestial alignment.</p>
+        </div>
+
+        <div class="compatibility-card">
+            <div class="signs-selection">
+
+                <!-- Sign 1 Selection -->
+                <div class="select-group">
+                    <label for="sign1">Your Sign</label>
+                    <select id="sign1">
+                        <option value="Aries">♈ Aries</option>
+                        <option value="Taurus">♉ Taurus</option>
+                        <option value="Gemini">♊ Gemini</option>
+                        <option value="Cancer">♋ Cancer</option>
+                        <option value="Leo">♌ Leo</option>
+                        <option value="Virgo">♍ Virgo</option>
+                        <option value="Libra">♎ Libra</option>
+                        <option value="Scorpio">♏ Scorpio</option>
+                        <option value="Sagittarius">♐ Sagittarius</option>
+                        <option value="Capricorn">♑ Capricorn</option>
+                        <option value="Aquarius">♒ Aquarius</option>
+                        <option value="Pisces">♓ Pisces</option>
+                    </select>
+                </div>
+
+                <div class="heart-divider">💖</div>
+
+                <!-- Sign 2 Selection -->
+                <div class="select-group">
+                    <label for="sign2">Partner's Sign</label>
+                    <select id="sign2">
+                        <option value="Aries">♈ Aries</option>
+                        <option value="Taurus">♉ Taurus</option>
+                        <option value="Gemini" selected>♊ Gemini</option>
+                        <option value="Cancer">♋ Cancer</option>
+                        <option value="Leo">♌ Leo</option>
+                        <option value="Virgo">♍ Virgo</option>
+                        <option value="Libra">♎ Libra</option>
+                        <option value="Scorpio">♏ Scorpio</option>
+                        <option value="Sagittarius">♐ Sagittarius</option>
+                        <option value="Capricorn">♑ Capricorn</option>
+                        <option value="Aquarius">♒ Aquarius</option>
+                        <option value="Pisces">♓ Pisces</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <button class="cta-button calculate-btn" onclick="checkCompatibility()">Calculate Match</button>
+
+            <!-- Results Display Area -->
+            <div id="compatibility-result" class="result-box">
+                <h3 id="match-title">Cosmic Synergy</h3>
+                <div class="percentage-badge" id="match-score">88%</div>
+                <p id="match-desc">Loading cosmic alignment details...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 AstralPulse. All rights reserved. For entertainment and spiritual growth.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

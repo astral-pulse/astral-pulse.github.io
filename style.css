@@ -1,0 +1,768 @@
+/* ==========================================================================
+   AstralPulse - Main Stylesheet (Nihai & Mobil Uyumlu Betik)
+   ========================================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #0b0612;
+    color: #e5d9f2;
+    font-family: 'Quicksand', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* 1. Enhanced Navbar & Header */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 4%;
+    background: rgba(14, 6, 28, 0.95);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.logo-symbol {
+    color: #d4af37;
+    font-size: 1.2rem;
+    text-shadow: 0 0 8px rgba(212, 175, 55, 0.8);
+}
+
+.logo h1 {
+    font-family: 'Cinzel', serif;
+    color: #d4af37;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+.navbar nav ul {
+    display: flex;
+    list-style: none;
+    gap: 15px;
+    align-items: center;
+}
+
+.navbar nav a {
+    color: #bfa8e0;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 6px 10px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+    .navbar nav a:hover {
+        color: #f3e9d2;
+        background: rgba(165, 148, 253, 0.15);
+    }
+
+    .navbar nav a.active {
+        color: #d4af37;
+        background: rgba(212, 175, 55, 0.12);
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+    }
+
+/* 2. Hero Section */
+.hero {
+    text-align: center;
+    padding: 3.5rem 1rem 2.5rem 1rem;
+    background: radial-gradient(circle at center, #23103c 0%, #0b0612 75%);
+}
+
+    .hero h2 {
+        font-family: 'Cinzel', serif;
+        font-size: 2.2rem;
+        color: #f3e9d2;
+        margin-bottom: 10px;
+    }
+
+    .hero p {
+        color: #a594fd;
+        font-size: 1rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+/* 3. Container & Layout */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    flex: 1;
+    width: 100%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding: 0 10px;
+}
+
+    .section-title h2 {
+        font-family: 'Cinzel', serif;
+        color: #d4af37;
+        font-size: 1.8rem;
+    }
+
+    .section-title p {
+        color: #8c7ab3;
+        font-size: 0.95rem;
+    }
+
+/* 4. Homepage Features Grid */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+    margin-top: 1rem;
+}
+
+.feature-card {
+    background: #160c29;
+    border: 1px solid #3b1d6e;
+    border-radius: 15px;
+    padding: 30px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+        border-color: #d4af37;
+    }
+
+.feature-icon {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+}
+
+.feature-card h3 {
+    font-family: 'Cinzel', serif;
+    color: #d4af37;
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+}
+
+.feature-card p {
+    color: #d6c7eb;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #2c1654, #4a218c);
+    color: #d4af37;
+    text-decoration: none;
+    border: 1px solid #d4af37;
+    border-radius: 25px;
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+}
+
+    .cta-button:hover {
+        background: #d4af37;
+        color: #0b0612;
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
+    }
+
+/* 5. Tarot Deck & Cards */
+.tarot-deck {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 3rem;
+}
+
+.tarot-item-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 210px;
+}
+
+.tarot-card-container {
+    width: 100%;
+    height: 350px;
+    perspective: 1000px;
+    cursor: pointer;
+    border-radius: 15px;
+    transition: box-shadow 0.4s ease;
+}
+
+    .tarot-card-container.selected {
+        box-shadow: 0 0 25px 5px rgba(212, 175, 55, 0.7), 0 0 50px 15px rgba(165, 148, 253, 0.4);
+    }
+
+.tarot-card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+}
+
+.tarot-card-container.flipped .tarot-card {
+    transform: rotateY(180deg);
+}
+
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    border: 2px solid #3b1d6e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-back {
+    background: linear-gradient(135deg, #180930, #2d1254);
+    color: #d4af37;
+}
+
+.back-pattern {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px #d4af37;
+}
+
+.card-back span {
+    font-size: 0.85rem;
+    color: #a594fd;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.card-front {
+    background: #170d2b;
+    color: #f3e9d2;
+    transform: rotateY(180deg);
+    padding: 15px;
+    justify-content: space-between;
+}
+
+.card-image-placeholder {
+    width: 100%;
+    height: 230px;
+    background: #251442;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #3b1d6e;
+}
+
+    .card-image-placeholder .symbol {
+        font-size: 4rem;
+    }
+
+.card-front h3 {
+    font-family: 'Cinzel', serif;
+    color: #d4af37;
+    font-size: 1rem;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.tarot-item-wrapper .card-detail-box {
+    display: none;
+    width: 100%;
+    background: #160c29;
+    border: 1px solid #3b1d6e;
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+    .tarot-item-wrapper .card-detail-box.active {
+        display: block;
+    }
+
+.card-detail-box h3 {
+    font-family: 'Cinzel', serif;
+    color: #d4af37;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #2c1654;
+    padding-bottom: 6px;
+    font-size: 1rem;
+}
+
+.card-detail-box p {
+    line-height: 1.5;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: #d6c7eb;
+}
+
+/* 6. Horoscope Grid & Focus View */
+.horoscope-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 15px;
+    justify-content: center;
+}
+
+.horoscope-card {
+    background: #160c29;
+    border: 1px solid #3b1d6e;
+    border-radius: 15px;
+    padding: 20px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+
+    .horoscope-card:hover {
+        transform: translateY(-4px);
+        border-color: #d4af37;
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+    }
+
+.zodiac-symbol {
+    font-size: 2.8rem;
+    margin-bottom: 8px;
+}
+
+.horoscope-card h3 {
+    font-family: 'Cinzel', serif;
+    color: #d4af37;
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.zodiac-date {
+    font-size: 0.75rem;
+    color: #a594fd;
+}
+
+.selected-horoscope-container {
+    display: none;
+    max-width: 700px;
+    margin: 0 auto;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+    .selected-horoscope-container.active {
+        display: block;
+    }
+
+.back-btn {
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 220px;
+}
+
+.horoscope-focus-card {
+    background: #160c29;
+    border: 2px solid #d4af37;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 25px;
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+}
+
+.horoscope-texts-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.h-text-box {
+    background: #160c29;
+    border: 1px solid #3b1d6e;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+    .h-text-box h3 {
+        font-family: 'Cinzel', serif;
+        color: #d4af37;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #2c1654;
+        padding-bottom: 6px;
+        font-size: 1.05rem;
+    }
+
+    .h-text-box p {
+        line-height: 1.6;
+        font-size: 0.95rem;
+        color: #d6c7eb;
+    }
+
+/* 7. Card & Details Containers */
+.card-details-container {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.card-detail-box {
+    display: none;
+    background: #160c29;
+    border: 1px solid #3b1d6e;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+    .card-detail-box.active {
+        display: block;
+    }
+
+    .card-detail-box h3 {
+        font-family: 'Cinzel', serif;
+        color: #d4af37;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #2c1654;
+        padding-bottom: 6px;
+        font-size: 1.05rem;
+    }
+
+    .card-detail-box p {
+        line-height: 1.6;
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+        color: #d6c7eb;
+    }
+
+/* 8. Zodiac Compatibility & Birth Chart Styles */
+.compatibility-card {
+    max-width: 650px;
+    margin: 0 auto;
+    background: #160c29;
+    border: 1px solid #3b1d6e;
+    border-radius: 20px;
+    padding: 25px 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.signs-selection {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.birth-form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 15px;
+    text-align: left;
+}
+
+.select-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    min-width: 140px;
+}
+
+    .select-group label {
+        font-family: 'Cinzel', serif;
+        color: #d4af37;
+        font-size: 0.9rem;
+    }
+
+    .select-group select, .birth-input {
+        background: #23103c;
+        color: #f3e9d2;
+        border: 1px solid #3b1d6e;
+        padding: 12px;
+        border-radius: 10px;
+        font-size: 0.95rem;
+        font-family: 'Quicksand', sans-serif;
+        outline: none;
+        cursor: pointer;
+        width: 100%;
+    }
+
+.heart-divider {
+    font-size: 1.8rem;
+    animation: pulse 1.5s infinite alternate;
+}
+
+.calculate-btn {
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+    font-size: 0.95rem;
+    padding: 12px 20px;
+}
+
+.result-box {
+    display: none;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #2c1654;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+    .result-box.active {
+        display: block;
+    }
+
+.percentage-badge {
+    font-size: 3rem;
+    font-family: 'Cinzel', serif;
+    color: #d4af37;
+    margin: 10px 0;
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+}
+
+.result-box p {
+    color: #d6c7eb;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* 9. Mystic Chat Window Styles */
+.chat-window {
+    max-width: 750px;
+    margin: 0 auto;
+    background: #160c29;
+    border: 1px solid #3b1d6e;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 480px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.message {
+    max-width: 85%;
+    padding: 12px 16px;
+    border-radius: 15px;
+    line-height: 1.5;
+    font-size: 0.9rem;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.oracle-msg {
+    background: #23103c;
+    color: #f3e9d2;
+    border: 1px solid #3b1d6e;
+    align-self: flex-start;
+    border-top-left-radius: 3px;
+}
+
+.user-msg {
+    background: linear-gradient(135deg, #2c1654, #4a218c);
+    color: #d4af37;
+    border: 1px solid #d4af37;
+    align-self: flex-end;
+    border-top-right-radius: 3px;
+}
+
+.chat-input-area {
+    display: flex;
+    padding: 12px 15px;
+    background: #0b0612;
+    border-top: 1px solid #2c1654;
+    gap: 10px;
+}
+
+    .chat-input-area input {
+        flex: 1;
+        background: #160c29;
+        color: #f3e9d2;
+        border: 1px solid #3b1d6e;
+        padding: 10px 15px;
+        border-radius: 25px;
+        font-size: 0.9rem;
+        font-family: 'Quicksand', sans-serif;
+        outline: none;
+    }
+
+        .chat-input-area input:focus {
+            border-color: #d4af37;
+        }
+
+.send-btn {
+    padding: 10px 18px;
+    font-size: 0.8rem;
+}
+
+/* 10. Footer */
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    background: #07030c;
+    color: #655480;
+    font-size: 0.8rem;
+    border-top: 1px solid #1c0e36;
+    margin-top: auto;
+}
+
+/* 11. Animations & Media Queries */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.15);
+    }
+}
+
+/* --- MOBILE NAVBAR & RESPONSIVE OPTIMIZATION --- */
+@media screen and (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 0.8rem 1rem;
+        gap: 10px;
+    }
+
+    .logo h1 {
+        font-size: 1.35rem;
+    }
+
+    .navbar nav {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+        .navbar nav ul {
+            justify-content: flex-start;
+            gap: 8px;
+            width: max-content;
+            margin: 0 auto;
+        }
+
+        .navbar nav a {
+            font-size: 0.8rem;
+            padding: 5px 8px;
+            white-space: nowrap;
+        }
+
+    .hero {
+        padding: 2.2rem 1rem 1.5rem 1rem;
+    }
+
+        .hero h2 {
+            font-size: 1.6rem;
+        }
+
+        .hero p {
+            font-size: 0.85rem;
+        }
+
+    .section-title h2 {
+        font-size: 1.4rem;
+    }
+
+    .tarot-deck {
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+    }a
+
+    .tarot-item-wrapper {
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .tarot-card-container {
+        width: 100%;
+        height: 330px;
+    }
+
+    .horoscope-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .compatibility-card {
+        padding: 20px 12px;
+    }
+
+    .signs-selection, .birth-form-grid {
+        flex-direction: column;
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .select-group {
+        width: 100%;
+    }
+
+    .chat-window {
+        height: 400px;
+        border-radius: 12px;
+    }
+}

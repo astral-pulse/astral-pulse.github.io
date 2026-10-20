@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AstralPulse - Daily Horoscopes</title>
+    <link href="[https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Quicksand:wght@400;600&display=swap](https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Quicksand:wght@400;600&display=swap)" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .horoscope-timeframe-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .tab-btn {
+            background: rgba(23, 11, 41, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: #e0d8f0;
+            padding: 0.75rem 1.8rem;
+            border-radius: 30px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+            .tab-btn:hover, .tab-btn.active {
+                background: #d4af37;
+                color: #0b0612;
+                border-color: #d4af37;
+                box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+            }
+
+        .zodiac-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin-bottom: 3rem;
+        }
+
+        .zodiac-card {
+            background: linear-gradient(135deg, rgba(23, 11, 41, 0.9), rgba(11, 6, 18, 0.95));
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            padding: 1.8rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .zodiac-card:hover {
+                transform: translateY(-5px);
+                border-color: #d4af37;
+                box-shadow: 0 10px 25px rgba(212, 175, 55, 0.25);
+            }
+
+        .zodiac-symbol {
+            font-size: 3rem;
+            color: #d4af37;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+        }
+
+        .zodiac-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            color: #ffffff;
+            margin-bottom: 0.2rem;
+        }
+
+        .zodiac-dates {
+            font-size: 0.85rem;
+            color: #a090c0;
+            margin-bottom: 1rem;
+        }
+
+        .zodiac-element-tag {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 15px;
+            font-size: 0.75rem;
+            color: #e5c158;
+            margin-bottom: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .zodiac-reading {
+            font-family: 'Quicksand', sans-serif;
+            color: #e0d8f0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            text-align: left;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            padding-top: 1rem;
+        }
+
+        .last-updated-badge {
+            text-align: center;
+            color: #a090c0;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Quicksand', sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Navbar Header -->
+    <header class="navbar">
+        <div class="logo">
+            <a href="index.html">
+                <span class="logo-symbol">✦</span>
+                <h1>ASTRALPULSE</h1>
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="tarot.html">Tarot</a></li>
+                <li><a href="horoscopes.html" class="active">Horoscopes</a></li>
+                <li><a href="compatibility.html">Compatibility</a></li>
+                <li><a href="birthchart.html">Birth Chart</a></li>
+                <li><a href="oracle-chat.html">Oracle Chat</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 2. Hero Section -->
+    <section class="hero">
+        <h2>Celestial Horoscopes</h2>
+        <p>Explore AI-generated cosmic alignment and daily astrological insights tailored for your sign.</p>
+    </section>
+
+    <!-- 3. Main Container -->
+    <main class="container">
+
+        <div class="horoscope-timeframe-tabs">
+            <button class="tab-btn active" onclick="setTimeframe('daily', this)">Daily Guidance</button>
+            <button class="tab-btn" onclick="setTimeframe('weekly', this)">Weekly Forecast</button>
+            <button class="tab-btn" onclick="setTimeframe('monthly', this)">Monthly Alignment</button>
+        </div>
+
+        <div class="last-updated-badge" id="lastUpdatedBadge">
+            Updating cosmic energies...
+        </div>
+
+        <div class="zodiac-grid" id="zodiacGrid"></div>
+
+    </main>
+
+    <!-- 4. Footer -->
+    <footer>
+        <p>&copy; 2026 AstralPulse - Your Mystic Guide. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let horoscopeData = null;
+        let currentTimeframe = 'daily';
+
+        async function loadHoroscopes() {
+            try {
+                const response = await fetch('data/horoscopes.json');
+                if (!response.ok) throw new Error('Data file not found');
+                horoscopeData = await response.json();
+
+                document.getElementById('lastUpdatedBadge').innerText =
+                    `✦ Cosmic Readings Updated: ${horoscopeData.lastUpdated} ✦`;
+
+                renderZodiacCards();
+            } catch (error) {
+                console.error('Error loading horoscope data:', error);
+                document.getElementById('zodiacGrid').innerHTML =
+                    '<p style="text-align:center; color:#e0d8f0; grid-column: 1/-1;">Unable to load horoscope readings. Please check back shortly.</p>';
+            }
+        }
+
+        function setTimeframe(timeframe, btnElement) {
+            currentTimeframe = timeframe;
+
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            if (btnElement) btnElement.classList.add('active');
+
+            renderZodiacCards();
+        }
+
+        function renderZodiacCards() {
+            if (!horoscopeData || !horoscopeData.signs) return;
+
+            const grid = document.getElementById('zodiacGrid');
+            grid.innerHTML = '';
+
+            Object.keys(horoscopeData.signs).forEach(key => {
+                const sign = horoscopeData.signs[key];
+                const reading = sign[currentTimeframe] || sign.daily;
+
+                const card = document.createElement('div');
+                card.className = 'zodiac-card';
+
+                card.innerHTML = `
+                    <div class="zodiac-symbol">${sign.symbol}</div>
+                    <div class="zodiac-name">${sign.name}</div>
+                    <div class="zodiac-dates">${sign.dates}</div>
+                    <span class="zodiac-element-tag">${sign.element}</span>
+                    <div class="zodiac-reading">
+                        ${reading}
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', loadHoroscopes);
+    </script>
+</body>
+</html>

@@ -1,0 +1,720 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AstralPulse - Cosmic Tarot Reading</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Kartın Arka Yüzü - Yazı ve Sembol Kaymasını Önleyen Kusursuz Hizalama */
+        .card-face.card-back {
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: center !important;
+            text-align: center !important;
+            padding: 20px !important;
+            box-sizing: border-box !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: linear-gradient(135deg, #170b29, #0b0612);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 12px;
+        }
+
+        .card-back .back-pattern {
+            font-size: 2.2rem;
+            color: #d4af37;
+            margin-bottom: 12px;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .card-back span {
+            color: #e0d8f0;
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            line-height: 1.4;
+            max-width: 100%;
+            word-wrap: break-word;
+            text-transform: uppercase;
+        }
+
+        /* Detaylı Yorum Kutuları İçin Stil */
+        .card-detail-box {
+            background: linear-gradient(135deg, rgba(23, 11, 41, 0.95), rgba(11, 6, 18, 0.98));
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            display: none;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.5s ease-in-out;
+        }
+
+            .card-detail-box.active {
+                display: block;
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .card-detail-box h3 {
+                font-family: 'Cinzel', serif;
+                color: #d4af37;
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+                border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+                padding-bottom: 0.5rem;
+            }
+
+        .card-detail-section {
+            margin-bottom: 1rem;
+        }
+
+            .card-detail-section h4 {
+                font-family: 'Cinzel', serif;
+                color: #e5c158;
+                font-size: 1.05rem;
+                margin-bottom: 0.3rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .card-detail-section p {
+                font-family: 'Quicksand', sans-serif;
+                color: #e0d8f0;
+                line-height: 1.6;
+                font-size: 0.95rem;
+            }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Navbar Header (Orijinal Tasarıma Uyarlanmış Hali)[cite: 3] -->
+    <header class="navbar">
+        <div class="logo">
+            <a href="index.html">
+                <span class="logo-symbol">✦</span>
+                <h1>ASTRALPULSE</h1>
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="tarot.html" class="active">Tarot</a></li>
+                <li><a href="horoscopes.html">Horoscopes</a></li>
+                <li><a href="compatibility.html">Compatibility</a></li>
+                <li><a href="birthchart.html">Birth Chart</a></li>
+                <li><a href="oracle-chat.html">Oracle Chat</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 2. Hero Section -->
+    <section class="hero">
+        <h2>Cosmic Tarot Reading</h2>
+        <p>Select 3 cards from the sacred deck below to reveal deep cosmic guidance surrounding your Past, Present, and Future.</p>
+    </section>
+
+    <!-- 3. Main Container -->
+    <main class="container">
+
+        <!-- Card Selection Area -->
+        <div class="tarot-deck" id="tarotDeck">
+            <!-- JavaScript will dynamically render 3 face-down cards here -->
+        </div>
+
+        <!-- Draw New Cards Button -->
+        <div style="text-align: center; margin-top: 1.5rem;">
+            <button class="cta-button" onclick="initTarotDeck()">Draw New Reading</button>
+        </div>
+
+        <!-- Card Details & Deep Interpretations Container -->
+        <div class="card-details-container" id="cardDetailsContainer" style="margin-top: 2.5rem;">
+            <!-- Detailed card interpretations will appear here when flipped -->
+        </div>
+
+    </main>
+
+    <!-- 4. Footer -->
+    <footer>
+        <p>&copy; 2026 AstralPulse - Your Mystic Guide. All rights reserved.</p>
+    </footer>
+
+    <!-- Tarot Page JavaScript Logic -->
+    <script>
+        // Full 78-Card Tarot Deck Database with Comprehensive Interpretations
+        const tarotDeckData = [
+            // MAJOR ARCANA
+            {
+                id: "00-TheFool", name: "0. The Fool", img: "images/00-TheFool.png",
+                general: "The Fool heralds pure beginnings, spontaneous adventure, and a leap of faith into the unknown. It urges you to embrace enthusiasm and leave fear behind, trusting that the universe will catch you as you step off the cliff of routine.",
+                love: "In love, expect exciting new encounters, playful romantic spontaneity, or a fresh start in an existing relationship. Be willing to open your heart without past baggage.",
+                career: "In career, an innovative project, an uncharted business venture, or a complete career shift is appearing. Fortune favors bold risks and unconventional ideas right now."
+            },
+            {
+                id: "01-TheMagician", name: "I. The Magician", img: "images/01-TheMagician.png",
+                general: "The Magician brings the power of manifestation, willpower, and personal resourcefulness. You hold all four elemental tools needed to transform your visions into tangible reality. Align your focus and act with unwavering intent.",
+                love: "A powerful, magnetic attraction is forming. In relationships, clear communication and taking initiative will align you and your partner toward shared goals.",
+                career: "Your skills, talent, and persuasiveness are at their peak. It is an optimal time to launch projects, pitch ideas, or ask for advancements."
+            },
+            {
+                id: "02-TheHighPriestess", name: "II. The High Priestess", img: "images/02-TheHighPriestess.png",
+                general: "The High Priestess sits at the gateway of intuition, sacred mystery, and subconscious depth. She advises you to look beyond surface appearances and trust your inner voice, dreams, and gut feelings over cold logic.",
+                love: "Deep emotional or spiritual connections are at play. Secret feelings or hidden aspects of a relationship may soon surface; rely on your intuition rather than rushing to conclusions.",
+                career: "Exercise patience and discretion. Gather insights quietly rather than revealing all your plans right away. Hidden opportunities or creative inspiration will guide your path."
+            },
+            {
+                id: "03-TheEmpress", name: "III. The Empress", img: "images/03-TheEmpress.png",
+                general: "The Empress embodies fertility, natural abundance, maternal warmth, and sensual creativity. She signifies a period of lush growth, comfort, and nurturing your passions into fruition.",
+                love: "Harbors deep affection, harmony, and romantic fulfillment. It often points to pregnancy, starting a home, or experiencing unconditional care and unconditional love.",
+                career: "Projects you have nurtured are ready to bloom into profitable endeavors. Creativity and collaborative harmony will bring financial and professional growth."
+            },
+            {
+                id: "04-TheEmperor", name: "IV. The Emperor", img: "images/04-TheEmperor.png",
+                general: "The Emperor signifies authority, structure, discipline, and solid foundations. He calls for strategic planning, clear boundaries, and taking decisive control of your life's direction.",
+                love: "Points to a stable, grounded, and dependable partnership. However, beware of stubbornness, power struggles, or over-controlling tendencies.",
+                career: "Organization and systematic execution are your keys to success. Leadership roles, promotions, or establishing order in business affairs will yield stability."
+            },
+            {
+                id: "05-TheHierophant", name: "V. The Hierophant", img: "images/05-TheHierophant.png",
+                general: "The Hierophant connects you with tradition, spiritual wisdom, mentorship, and structured belief systems. It encourages honoring proven methods, education, or seeking guidance from experienced advisors.",
+                love: "Commitment, traditional values, or marriage are highlighted. Aligning shared core values and mutual spiritual respect is essential for long-term bonding.",
+                career: "Working within established institutional guidelines or partnering with a trusted mentor will bring stability and professional advancement."
+            },
+            {
+                id: "06-TheLovers", name: "VI. The Lovers", img: "images/06-TheLovers.png",
+                general: "The Lovers represents harmony, profound connections, and pivotal choices rooted in core personal values. It is about aligning your heart and mind to make decisions that resonate with your true self.",
+                love: "Soulmate energy, passionate harmony, and deep mutual respect. It heralds choosing commitment or resolving dualities within a relationship.",
+                career: "Important business partnerships or ethical choices lie ahead. Aligning yourself with partners who share your integrity will lead to mutual success."
+            },
+            {
+                id: "07-TheChariot", name: "VII. The Chariot", img: "images/07-TheChariot.png",
+                general: "The Chariot symbolizes triumph, willpower, ambition, and overcoming opposing forces through focused momentum. Harness your inner discipline and navigate through challenges with unshakeable resolve.",
+                love: "Overcoming emotional obstacles together through determination. It urges you to take charge of your romantic journey rather than letting circumstances dictate it.",
+                career: "A period of high drive, rapid career progression, or overcoming tough market competition. Focus on your goals and push through with relentless perseverance."
+            },
+            {
+                id: "08-Strength", name: "VIII. Strength", img: "images/08-Strength.png",
+                general: "Strength represents quiet courage, patience, compassion, and mastering base desires or fear with gentle grace rather than brutal force. True power comes from emotional maturity and resilience.",
+                love: "Patience, gentle understanding, and unconditional forgiveness strengthen romantic bonds. Taming hot tempers with warmth will heal friction.",
+                career: "Persist through workplace challenges with calm composure and diplomacy. Your resilience and steady hand under pressure will earn lasting respect."
+            },
+            {
+                id: "09-TheHermit", name: "IX. The Hermit", img: "images/09-TheHermit.png",
+                general: "The Hermit calls for introspection, solitude, and stepping back from external noise to discover your true inner lantern. It is a period of self-reflection, soul-searching, and spiritual illumination.",
+                love: "Taking time to understand your personal emotional needs. Single individuals may need solitude to heal, while couples benefit from deep, quiet introspection.",
+                career: "A time to re-evaluate career goals, analyze strategies, or work independently away from office politics. Quality and authenticity outweigh speed."
+            },
+            {
+                id: "10-WheelOfFortune", name: "X. Wheel of Fortune", img: "images/10-WheelOfFortune.png",
+                general: "The Wheel of Fortune signifies cosmic cycles, destiny, good luck, and inevitable change. The universe is shifting gears; expect sudden turns of events that bring karma and alignment.",
+                love: "Fated encounters, unexpected romantic twists, or positive turning points in relationships. Embrace the shifting tides of fate.",
+                career: "A stroke of financial luck, unexpected job offers, or favorable market shifts. Adapt quickly to incoming opportunities."
+            },
+            {
+                id: "11-Justice", name: "XI. Justice", img: "images/11-Justice.png",
+                general: "Justice brings truth, accountability, fairness, and karma into focus. Your past actions and decisions will bring proportional outcomes; act with integrity and balance your logic.",
+                love: "Fairness, honesty, and equal give-and-take in relationships. Outstanding issues or legal marital matters will reach an equitable resolution.",
+                career: "Contract negotiations, legal disputes, or performance reviews will be resolved fairly. Honesty and transparency are paramount."
+            },
+            {
+                id: "12-TheHangedMan", name: "XII. The Hanged Man", img: "images/12-TheHangedMan.png",
+                general: "The Hanged Man invites surrender, intentional pause, and viewing circumstances from an inverted perspective. Letting go of rigid control allows spiritual breakthroughs to take place.",
+                love: "Relationships may feel temporarily paused or in limbo. Use this waiting period to gain fresh emotional perspectives instead of forcing outcomes.",
+                career: "Projects may face temporary delays. Take a step back to re-evaluate plans; rushing now will only cause frustration."
+            },
+            {
+                id: "13-Death", name: "XIII. Death", img: "images/13-Death.png",
+                general: "Death represents profound transformation, necessary endings, and sweeping away the old to allow rebirth. Release stagnant habits, patterns, or chapters to step into a fresh future.",
+                love: "Closing painful romantic chapters, shedding toxic relationship dynamics, or evolving into a brand new era of emotional maturity.",
+                career: "Leaving an unfulfilling job, sunsetting outdated business models, or transitioning into a completely new professional field."
+            },
+            {
+                id: "14-Temperance", name: "XIV. Temperance", img: "images/14-Temperance.png",
+                general: "Temperance brings moderation, inner peace, alchemy, and harmonious synthesis. It urges you to blend contrasting life elements with patience and calm balance.",
+                love: "Deep emotional harmony, mutual compromise, and tranquil bonding. A peaceful period where conflicts dissolve smoothly.",
+                career: "Steady, measured career progress. Avoid extreme financial risks or rash workplace decisions; steady collaboration is key."
+            },
+            {
+                id: "15-TheDevil", name: "XV. The Devil", img: "images/15-TheDevil.png",
+                general: "The Devil highlights unhealthy attachments, material illusions, addictive patterns, and feeling trapped by shadow desires. It reminds you that the chains binding you are often self-imposed.",
+                love: "Obsessive attraction, codependency, or toxic relationship loops. Examine whether fear or obsession is driving your romantic choices.",
+                career: "Feeling trapped in a high-stress job purely for financial security, or dealing with workplace toxicity. Reclaim your personal agency."
+            },
+            {
+                id: "16-TheTower", name: "XVI. The Tower", img: "images/16-TheTower.png",
+                general: "The Tower brings sudden upheaval, shattering of illusions, and cosmic liberation. While disruptive, lightning strikes destroy false foundations so that absolute truth can rebuild your life.",
+                love: "Sudden realizations, breaking down of secrets, or abrupt relationship shifts. Though shocking, it clears away deceit.",
+                career: "Unexpected organizational changes, job restructuring, or sudden project cancellations. Look for the silver lining in building anew."
+            },
+            {
+                id: "17-TheStar", name: "XVII. The Star", img: "images/17-TheStar.png",
+                general: "The Star brings hope, spiritual renewal, inspiration, and divine blessing following a storm. It shines a tranquil light, reassuring you that your path is blessed with peace and clarity.",
+                love: "Deep emotional healing, renewed faith in romance, and serene bonding. A beautiful time for vulnerable, heart-centered intimacy.",
+                career: "Inspiration, creative breakthroughs, and long-term career optimism. Your talents will gain recognition and quiet admiration."
+            },
+            {
+                id: "18-TheMoon", name: "XVIII. The Moon", img: "images/18-TheMoon.png",
+                general: "The Moon reveals the realm of illusions, subconscious fears, vivid dreams, and uncertainty. Not everything is as it appears; trust your intuitive compass through foggy waters.",
+                love: "Misunderstandings, unsaid emotions, or hidden insecurities may trigger anxiety. Seek clarity gently without making hasty assumptions.",
+                career: "Unclear business terms, hidden motives, or incomplete information. Double-check details and hold off on major commitments."
+            },
+            {
+                id: "19-TheSun", name: "XIX. The Sun", img: "images/19-TheSun.png",
+                general: "The Sun brings radiant joy, vitality, clarity, and magnificent success. It illuminates dark corners with warmth, positivity, and triumphant fulfillment across all endeavors.",
+                love: "Pure happiness, mutual celebration, transparency, and warmth in love. A vibrant, joyful period for romance and companionship.",
+                career: "Promotions, public accolades, profitable breakthroughs, and high energy. Everything you touch under this light prospers."
+            },
+            {
+                id: "20-Judgement", name: "XX. Judgement", img: "images/20-Judgement.png",
+                general: "Judgement heralds awakening, spiritual evaluation, and stepping into your higher calling. Reflect upon past lessons, forgive past mistakes, and rise renewed into your true purpose.",
+                love: "Critical turning points, forgiveness of past romantic mistakes, or making a lasting commitment based on absolute honesty.",
+                career: "Evaluating past career achievements, passing pivotal reviews, or answering a higher professional calling."
+            },
+            {
+                id: "21-TheWorld", name: "XXI. The World", img: "images/21-TheWorld.png",
+                general: "The World signifies ultimate completion, fulfillment, cosmic integration, and global horizons. You have successfully navigated an entire life lesson cycle and stand whole.",
+                love: "Reaching a sense of wholeness, marital fulfillment, or traveling the world with a beloved partner.",
+                career: "Successfully wrapping up major long-term projects, achieving global reach, or enjoying well-earned career mastery."
+            },
+
+            // MINOR ARCANA - WANDS
+            {
+                id: "Wands01", name: "Ace of Wands", img: "images/Wands01.png",
+                general: "A burst of creative fire, fresh passion, and raw inspiration. A powerful spark is awakening your drive to create and conquer.",
+                love: "Passionate romance, magnetic chemistry, or an exciting new spark that revitalizes your love life.",
+                career: "An innovative business idea, new entrepreneurial venture, or high-energy career initiative."
+            },
+            {
+                id: "Wands02", name: "Two of Wands", img: "images/Wands02.png",
+                general: "Strategic planning, stepping beyond comfortable boundaries, and mapping out long-term expansion from a position of strength.",
+                love: "Planning future milestones together, discussing travel, or choosing between romantic paths.",
+                career: "Exploring international markets, partnership expansion, or choosing your next ambitious career trajectory."
+            },
+            {
+                id: "Wands03", name: "Three of Wands", img: "images/Wands03.png",
+                general: "Foresight, expansion, and watching your initial efforts begin to bear fruit. Ships of opportunity are arriving on your horizon.",
+                love: "Growing together, sharing big vision plans, or navigating long-distance romance with optimism.",
+                career: "Business ventures expanding, rewards from past investments, and international opportunities opening up."
+            },
+            {
+                id: "Wands04", name: "Four of Wands", img: "images/Wands04.png",
+                general: "Joyous celebration, domestic stability, homecoming, and milestone achievements with community and loved ones.",
+                love: "Weddings, housewarmings, or celebrating relationship milestones in a warm, welcoming environment.",
+                career: "Reaching key team project goals, celebrating workplace milestones, and enjoying a supportive work environment."
+            },
+            {
+                id: "Wands05", name: "Five of Wands", img: "images/Wands05.png",
+                general: "Spirited competition, clashing ego energy, and constructive conflict that ultimately sharpens your determination.",
+                love: "Bickering, small jealousies, or competing for attention. Channel this hot energy into playful excitement.",
+                career: "Office rivalry, brainstorming debates, or tough market competition. Rise above chaos with clear focus."
+            },
+            {
+                id: "Wands06", name: "Six of Wands", img: "images/Wands06.png",
+                general: "Victory, public recognition, triumph, and deserving applause for your perseverance.",
+                love: "Feeling cherished, admired, and celebrated by your partner or attracting admirers through confident charisma.",
+                career: "Promotions, public awards, successful product launches, and earning professional acclaim."
+            },
+            {
+                id: "Wands07", name: "Seven of Wands", img: "images/Wands07.png",
+                general: "Standing firm on high ground, defending your position, and holding your ground against incoming pressure.",
+                love: "Protecting your relationship from external interference or standing up for your personal emotional values.",
+                career: "Defending your ideas, maintaining market leadership against competitors, and pushing through resistance."
+            },
+            {
+                id: "Wands08", name: "Eight of Wands", img: "images/Wands08.png",
+                general: "Swift movement, rapid communication, travel, and events unfolding at incredible speed.",
+                love: "Fast-paced romantic developments, sudden love messages, or spontaneous trips together.",
+                career: "Rapid project execution, incoming business deals, or fast-tracked career communications."
+            },
+            {
+                id: "Wands09", name: "Nine of Wands", img: "images/Wands09.png",
+                general: "Resilience, battle-tested endurance, and making one final stand just before the finish line.",
+                love: "Guarded feelings due to past heartbreak. Hold on; you are close to overcoming emotional barriers.",
+                career: "Pushing through final work deadlines despite exhaustion. Victory is imminent if you persist."
+            },
+            {
+                id: "Wands10", name: "Ten of Wands", img: "images/Wands10.png",
+                general: "Overburdened with responsibility, stress, and approaching burnout. It is time to delegate or release extra weight.",
+                love: "Feeling like you are carrying the entire emotional weight of a relationship alone. Open up and share burdens.",
+                career: "Taking on too many tasks at once. Re-prioritize or delegate duties to avoid exhaustion."
+            },
+            {
+                id: "Wands11", name: "Page of Wands", img: "images/Wands11.png",
+                general: "Eager curiosity, adventurous news, and exploring creative passions with youthful excitement.",
+                love: "Flirtatious messages, spontaneous dates, and a fun, playful romantic attitude.",
+                career: "Starting new skill training, discovering creative project angles, or receiving inspiring news."
+            },
+            {
+                id: "Wands12", name: "Knight of Wands", img: "images/Wands12.png",
+                general: "Dynamic energy, daring action, ambition, and charging forward with fiery enthusiasm.",
+                love: "A passionate, sweeping romance or a charismatic partner who loves adventure, though watch for impatience.",
+                career: "Relentless push toward goals, fearless risk-taking, and rapidly seizing business opportunities."
+            },
+            {
+                id: "Wands13", name: "Queen of Wands", img: "images/Wands13.png",
+                general: "Vibrant charisma, self-assurance, fierce independence, and warm, radiant social power.",
+                love: "Attracting love through genuine self-worth, magnetic warmth, and vibrant independence.",
+                career: "Leading projects with creative flair, inspiring team members, and building a memorable brand presence."
+            },
+            {
+                id: "Wands14", name: "King of Wands", img: "images/Wands14.png",
+                general: "Visionary leadership, entrepreneurial mastery, and guiding big initiatives to success with authority.",
+                love: "A protective, charismatic, and inspiring partner who takes bold initiative in romance.",
+                career: "Executing high-level business strategies, managing teams confidently, and achieving major commercial milestones."
+            },
+
+            // MINOR ARCANA - CUPS
+            {
+                id: "Cups01", name: "Ace of Cups", img: "images/Cups01.png",
+                general: "An overwhelming wave of love, emotional awakening, spiritual grace, and joyful, pure connections.",
+                love: "Falling deeply in love, emotional healing, or experiencing profound intimacy in an existing bond.",
+                career: "Finding true emotional fulfillment in your work or launching creative, heart-centered projects."
+            },
+            {
+                id: "Cups02", name: "Two of Cups", img: "images/Cups02.png",
+                general: "Mutual attraction, balanced partnerships, emotional resonance, and deep soul connections.",
+                love: "Harmonious romantic union, engagement, or finding a soulmate who reflects your heart perfectly.",
+                career: "Successful business double-acts, smooth contract negotiations, and supportive working relationships."
+            },
+            {
+                id: "Cups03", name: "Three of Cups", img: "images/Cups03.png",
+                general: "Friendship, joyful social gatherings, creative collaboration, and celebrating life with loved ones.",
+                love: "Social fun with your partner, introducing a loved one to your circle, or celebrating love milestones.",
+                career: "Successful team achievements, harmonious workplace culture, and networking celebrations."
+            },
+            {
+                id: "Cups04", name: "Four of Cups", img: "images/Cups04.png",
+                general: "Apathy, emotional withdrawal, re-evaluating options, and missing golden opportunities due to distraction.",
+                love: "Feeling dissatisfied or emotionally distant. Look around—a genuine romantic gift is being offered.",
+                career: "Boredom at work or feeling uninspired. Shift your focus to spot new avenues right under your nose."
+            },
+            {
+                id: "Cups05", name: "Five of Cups", img: "images/Cups05.png",
+                general: "Grief, dwelling on past losses, and regret. Shift your focus away from spilled water to see the cups still standing behind you.",
+                love: "Mourning a heartbreak or past disappointment. Healing begins when you acknowledge the love that still surrounds you.",
+                career: "Losing a contract or dealing with setback. Focus on remaining assets to rebuild stronger."
+            },
+            {
+                id: "Cups06", name: "Six of Cups", img: "images/Cups06.png",
+                general: "Sweet nostalgia, childhood innocence, reunions, and kind, generous gestures from the past.",
+                love: "An ex-partner or past flame re-connecting, or rekindling youthful, innocent romance with a current partner.",
+                career: "Revisiting past creative projects, working with old colleagues, or benefiting from past goodwill."
+            },
+            {
+                id: "Cups07", name: "Seven of Cups", img: "images/Cups07.png",
+                general: "Abundant options, daydreams, and tempting illusive choices. Distinguish realistic goals from fleeting fantasies.",
+                love: "Multiple romantic interests or idealizing partners. Ground your heart in reality rather than perfectionism.",
+                career: "Numerous career avenues available. Filter out shiny distractions and commit to a concrete plan."
+            },
+            {
+                id: "Cups08", name: "Eight of Cups", img: "images/Cups08.png",
+                general: "Walking away from unfulfilling situations, spiritual quests, and seeking deeper emotional truth elsewhere.",
+                love: "Leaving a stale relationship or releasing emotional patterns that no longer serve your soul's growth.",
+                career: "Moving on from an uninspiring job or career path to pursue true personal calling."
+            },
+            {
+                id: "Cups09", name: "Nine of Cups", img: "images/Cups09.png",
+                general: "The 'Wish Card'—representing emotional satisfaction, luxury, contentment, and personal happiness.",
+                love: "Experiencing deep romantic bliss, feeling cherished, and watching heart wishes materialize.",
+                career: "Achieving desired career milestones, financial comfort, and pride in your independent accomplishments."
+            },
+            {
+                id: "Cups10", name: "Ten of Cups", img: "images/Cups10.png",
+                general: "Ultimate family bliss, lasting peace, emotional fulfillment, and total harmony in home life.",
+                love: "Living happily ever after, deep marital harmony, and creating a loving home environment.",
+                career: "Work-life balance, supportive workplace family, and achieving lasting security."
+            },
+            {
+                id: "Cups11", name: "Page of Cups", img: "images/Cups11.png",
+                general: "Intuitive impulses, emotional messages, creative artistic sparks, and romantic sweet gestures.",
+                love: "A sweet love note, unexpected affection, or an invitation to a tender, romantic date.",
+                career: "Fresh artistic inspiration, intuitive business ideas, or receiving positive feedback."
+            },
+            {
+                id: "Cups12", name: "Knight of Cups", img: "images/Cups12.png",
+                general: "Romantic gestures, chivalry, artistic visions, and following your heart's true calling.",
+                love: "A charming suitor, grand romantic proposals, or expressing poetic affection openly.",
+                career: "Pitching creative concepts with charm, pursuing dream jobs, and building rapport with clients."
+            },
+            {
+                id: "Cups13", name: "Queen of Cups", img: "images/Cups13.png",
+                general: "Profound empathy, emotional wisdom, intuitive healing, and unconditional nurturing support.",
+                love: "Deep, empathetic listening and intuitive bonding. A nurturing partner who holds a safe space for your heart.",
+                career: "Using emotional intelligence and compassion to lead teams, mentor others, or handle sensitive negotiations."
+            },
+            {
+                id: "Cups14", name: "King of Cups", img: "images/Cups14.png",
+                general: "Emotional mastery, calm wisdom amidst storms, diplomacy, and balanced heart-mind guidance.",
+                love: "A mature, devoted, and emotionally stable partner who offers unwavering support and guidance.",
+                career: "Navigating corporate challenges with diplomatic grace, maintaining calm under pressure, and fair leadership."
+            },
+
+            // MINOR ARCANA - SWORDS
+            {
+                id: "Swords01", name: "Ace of Swords", img: "images/Swords01.png",
+                general: "Mental clarity, intellectual breakthroughs, cutting through deception, and triumph of truth.",
+                love: "Honest, groundbreaking conversations that clear up confusion and lay a foundation of absolute truth.",
+                career: "Sharp analytical solutions, winning intellectual arguments, and executing brilliant strategic moves."
+            },
+            {
+                id: "Swords02", name: "Two of Swords", img: "images/Swords02.png",
+                general: "Stalemate, difficult choices, blocking out emotions, and avoiding an uncomfortable truth.",
+                love: "Indecision between two romantic paths or avoiding necessary relationship talks. Remove the blindfold.",
+                career: "Tough business crossroads. Weigh facts objectively to break through analysis paralysis."
+            },
+            {
+                id: "Swords03", name: "Three of Swords", img: "images/Swords03.png",
+                general: "Heartbreak, painful realizations, rejection, and grief. The painful truth serves as a catalyst for ultimate healing.",
+                love: "Emotional hurt, breakup, or painful words spoken. Allow yourself to grieve so healing can begin.",
+                career: "Project disappointment, cancelled partnerships, or sharp workplace criticism. Learn and rebuild."
+            },
+            {
+                id: "Swords04", name: "Four of Swords", img: "images/Swords04.png",
+                general: "Rest, mental recovery, solitude, and recharge before embarking on the next phase of life.",
+                love: "Taking a step back from relationship drama to regain personal peace and clarity.",
+                career: "Taking a well-deserved vacation or sabbatical to prevent mental burnout."
+            },
+            {
+                id: "Swords05", name: "Five of Swords", img: "images/Swords05.png",
+                general: "Pyrrhic victory, arguments driven by ego, hostility, and realizing some battles are not worth winning.",
+                love: "Winning arguments at the expense of love and trust. Put down your weapons and seek peace.",
+                career: "Toxic office politics or unethical competition. Protect your integrity and walk away from petty disputes."
+            },
+            {
+                id: "Swords06", name: "Six of Swords", img: "images/Swords06.png",
+                general: "Transitioning to calmer waters, leaving trouble behind, healing, and mental recovery.",
+                love: "Moving past relationship turbulence or leaving a difficult past to build a tranquil future.",
+                career: "Leaving high-stress work situations for smoother professional environments or relocation."
+            },
+            {
+                id: "Swords07", name: "Seven of Swords", img: "images/Swords07.png",
+                general: "Strategic maneuvering, stealth, caution, and avoiding direct confrontation through clever planning.",
+                love: "Secrets, mistrust, or guarded behavior. Ensure transparency is restored to keep bonds healthy.",
+                career: "Protecting intellectual property, working quietly behind the scenes, or outsmarting competitors."
+            },
+            {
+                id: "Swords08", name: "Eight of Swords", img: "images/Swords08.png",
+                general: "Feeling trapped, self-imposed mental barriers, and victim mindset. The ropes are loose—remove your blindfold.",
+                love: "Feeling stuck in romantic anxiety. Realize you hold the power to change your emotional story.",
+                career: "Feeling trapped in a job. Shift your mindset to discover hidden avenues of freedom."
+            },
+            {
+                id: "Swords09", name: "Nine of Swords", img: "images/Swords09.png",
+                general: "Anxiety, sleepless nights, guilt, and catastrophe thinking. Nightmares are often worse than reality.",
+                love: "Overthinking relationship issues or fear of abandonment. Share your worries openly to dissolve shadows.",
+                career: "Work stress triggering anxiety. Break tasks down into manageable steps to regain control."
+            },
+            {
+                id: "Swords10", name: "Ten of Swords", img: "images/Swords10.png",
+                general: "Dramatic end, hitting rock bottom, and betrayal. The painful cycle is finally over; a new dawn approaches.",
+                love: "The definitive closure of a toxic relationship dynamic, allowing a fresh start from scratch.",
+                career: "A project coming to a sudden end or job loss. The worst is behind you; you can now rebuild higher."
+            },
+            {
+                id: "Swords11", name: "Page of Swords", img: "images/Swords11.png",
+                general: "Insatiable curiosity, alert intellect, gathering information, and sharp communication.",
+                love: "Inquisitive energy, keeping tabs on each other, or stimulating intellectual debates with a partner.",
+                career: "Researching market data, learning new software tools, or delivering quick, crisp presentations."
+            },
+            {
+                id: "Swords12", name: "Knight of Swords", img: "images/Swords12.png",
+                general: "Relentless focus, directness, ambition, and rushing forward to achieve objectives swiftly.",
+                love: "Direct, no-nonsense communication. Watch out for sharp words spoken in the heat of passion.",
+                career: "Tackling complex work problems aggressively, cutting through red tape, and hitting targets."
+            },
+            {
+                id: "Swords13", name: "Queen of Swords", img: "images/Swords13.png",
+                general: "Unbiased truth, clear boundaries, sharp wit, and evaluating situations with objective wisdom.",
+                love: "Valuing honesty and mental connection above all. Setting healthy, firm boundaries in romance.",
+                career: "Making tough management decisions, editing proposals, and demanding clarity from partners."
+            },
+            {
+                id: "Swords14", name: "King of Swords", img: "images/Swords14.png",
+                general: "Intellectual authority, ethical truth, strategic brilliance, and impartial, fair judgment.",
+                love: "A relationship built on mutual respect, deep intellectual dialogue, and clear moral standards.",
+                career: "High-level strategic leadership, legal clarity, and managing complex systems with expertise."
+            },
+
+            // MINOR ARCANA - PENTACLES
+            {
+                id: "Pentacles01", name: "Ace of Pentacles", img: "images/Pentacles01.png",
+                general: "Tangible abundance, financial opportunities, solid physical health, and prosperous beginnings.",
+                love: "A stable, grounded love interest or building real-world security together (home, family, wealth).",
+                career: "Lucrative job offers, successful investments, or starting a profitable business venture."
+            },
+            {
+                id: "Pentacles02", name: "Two of Pentacles", img: "images/Pentacles02.png",
+                general: "Juggling financial priorities, adaptability, flexibility, and managing life's ups and downs gracefully.",
+                love: "Balancing time between romance and work responsibilities. Flexibility keeps the spark alive.",
+                career: "Managing multiple clients or side hustles successfully through smart time management."
+            },
+            {
+                id: "Pentacles03", name: "Three of Pentacles", img: "images/Pentacles03.png",
+                general: "Mastery, teamwork, collaboration, and building high-quality foundations through shared expertise.",
+                love: "Building a relationship step-by-step through mutual effort, planning, and teamwork.",
+                career: "Successful group projects, working with skilled architects/mentors, and professional recognition."
+            },
+            {
+                id: "Pentacles04", name: "Four of Pentacles", img: "images/Pentacles04.png",
+                general: "Financial security, holding on tightly to resources, territorial control, and fear of scarcity.",
+                love: "Emotional possessiveness or fear of vulnerability. Open your heart to allow love to flow.",
+                career: "Conserving capital, protecting assets, and prioritizing long-term job security over risky ventures."
+            },
+            {
+                id: "Pentacles05", name: "Five of Pentacles", img: "images/Pentacles05.png",
+                general: "Temporary financial struggle, feeling left out in the cold, or hardship. Look up—support is nearby.",
+                love: "Feeling emotionally neglected or weathering financial hardship together. Reconnect with warmth.",
+                career: "Temporary budget cuts or job hunting. Seek community support and assistance programs."
+            },
+            {
+                id: "Pentacles06", name: "Six of Pentacles", img: "images/Pentacles06.png",
+                general: "Generosity, fair distribution of resources, charity, and balanced give-and-take dynamics.",
+                love: "Equal emotional investment, support, and mutual generosity between partners.",
+                career: "Receiving funding, grants, pay raises, or mentoring others in your field."
+            },
+            {
+                id: "Pentacles07", name: "Seven of Pentacles", img: "images/Pentacles07.png",
+                general: "Patience, long-term investments, evaluating progress, and waiting for seeds to mature into harvest.",
+                love: "Patiently nurturing a relationship and assessing long-term compatibility together.",
+                career: "Reviewing business returns on past efforts. Stay patient; your hard work is ripening."
+            },
+            {
+                id: "Pentacles08", name: "Eight of Pentacles", img: "images/Pentacles08.png",
+                general: "Diligence, craftsmanship, mastering skills, and repetitive focus yielding perfection.",
+                love: "Putting consistent, daily effort into strengthening your connection and building trust.",
+                career: "Honing your technical skills, pursuing advanced certifications, and taking pride in detail work."
+            },
+            {
+                id: "Pentacles09", name: "Nine of Pentacles", img: "images/Pentacles09.png",
+                general: "Financial independence, self-sufficiency, refined luxury, and enjoying the fruits of your labor.",
+                love: "Loving yourself first, enjoying comfortable independence, or sharing high quality of life with a partner.",
+                career: "Reaching a stage of career autonomy, thriving as a freelancer, and financial security."
+            },
+            {
+                id: "Pentacles10", name: "Ten of Pentacles", img: "images/Pentacles10.png",
+                general: "Generational wealth, family legacy, long-term financial security, and deep-rooted stability.",
+                love: "Building a permanent home, family backing, and long-term marital security.",
+                career: "Establishing an enduring business, inheritance, or retiring with solid financial assets."
+            },
+            {
+                id: "Pentacles11", name: "Page of Pentacles", img: "images/Pentacles11.png",
+                general: "Grounded ambitions, practical learning, eagerness to build wealth, and trustworthy news.",
+                love: "A dependable, practical partner or making clear, real-world plans for your shared future.",
+                career: "Starting an apprenticeship, exploring new income streams, or solidifying educational goals."
+            },
+            {
+                id: "Pentacles12", name: "Knight of Pentacles", img: "images/Pentacles12.png",
+                general: "Methodical execution, unwavering loyalty, routine, and steady progress toward success.",
+                love: "A deeply loyal, steadfast, and reliable partner who shows love through practical actions.",
+                career: "Consistent, reliable execution. Following through on commitments yields guaranteed results."
+            },
+            {
+                id: "Pentacles13", name: "Queen of Pentacles", img: "images/Pentacles13.png",
+                general: "Nurturing abundance, domestic warmth, practical resourcefulness, and grounded hospitality.",
+                love: "Creating a cozy, safe, and prosperous home life filled with genuine affection and care.",
+                career: "Managing resources wisely, balancing work and personal wellness, and steady fiscal growth."
+            },
+            {
+                id: "Pentacles14", name: "King of Pentacles", img: "images/Pentacles14.png",
+                general: "Financial mastery, commercial leadership, stability, and creating lasting wealth and security.",
+                love: "A stable, generous partner who provides security, comfort, and unwavering emotional grounding.",
+                career: "Managing major business assets, successful real estate ventures, and executive leadership."
+            }
+        ];
+
+        // Function to Draw 3 Random Cards & Render to DOM
+        function initTarotDeck() {
+            const deckContainer = document.getElementById('tarotDeck');
+            const detailsContainer = document.getElementById('cardDetailsContainer');
+
+            deckContainer.innerHTML = '';
+            detailsContainer.innerHTML = '';
+
+            // Pick 3 Unique Random Cards
+            const selectedCards = [];
+            const tempDeck = [...tarotDeckData];
+            const positions = ["Past", "Present", "Future"];
+
+            for (let i = 0; i < 3; i++) {
+                const randomIndex = Math.floor(Math.random() * tempDeck.length);
+                const card = tempDeck.splice(randomIndex, 1)[0];
+                card.currentPosition = positions[i];
+                selectedCards.push(card);
+            }
+
+            // Render Card Markup
+            selectedCards.forEach((card, index) => {
+                const cardWrapper = document.createElement('div');
+                cardWrapper.className = 'tarot-item-wrapper';
+
+                cardWrapper.innerHTML = `
+                        <div class="tarot-card-container" onclick="revealCard(this, ${index})">
+                            <div class="tarot-card">
+                                <div class="card-face card-back">
+                                    <div class="back-pattern">✦</div>
+                                    <span>${card.currentPosition}</span>
+                                </div>
+                                <div class="card-face card-front">
+                                    <div class="card-image-placeholder" style="padding: 0; overflow: hidden;">
+                                        <img src="${card.img}" alt="${card.name}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;" onerror="this.src='https://via.placeholder.com/210x330/23103c/d4af37?text=${encodeURIComponent(card.name)}'">
+                                    </div>
+                                    <h3>${card.name}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                deckContainer.appendChild(cardWrapper);
+
+                // Prepare Deep Interpretation Box (Revealed on Click)
+                const detailBox = document.createElement('div');
+                detailBox.className = 'card-detail-box';
+                detailBox.id = `detail-box-${index}`;
+                detailBox.innerHTML = `
+                        <h3>${card.currentPosition}: ${card.name}</h3>
+
+                        <div class="card-detail-section">
+                            <h4>✦ General Meaning & Cosmic Energy</h4>
+                            <p>${card.general}</p>
+                        </div>
+
+                        <div class="card-detail-section">
+                            <h4>✦ Love & Relationships</h4>
+                            <p>${card.love}</p>
+                        </div>
+
+                        <div class="card-detail-section">
+                            <h4>✦ Career, Finance & Path</h4>
+                            <p>${card.career}</p>
+                        </div>
+                    `;
+                detailsContainer.appendChild(detailBox);
+            });
+        }
+
+        // Function to Flip Card and Display Details
+        function revealCard(container, index) {
+            if (!container.classList.contains('flipped')) {
+                container.classList.add('flipped');
+                container.classList.add('selected');
+                const detailBox = document.getElementById(`detail-box-${index}`);
+                if (detailBox) {
+                    detailBox.classList.add('active');
+                }
+            }
+        }
+
+        // Initialize Deck on DOM Load
+        window.addEventListener('DOMContentLoaded', initTarotDeck);
+    </script>
+</body>
+</html>

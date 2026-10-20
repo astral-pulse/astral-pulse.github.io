@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birth Chart Calculator - AstralPulse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="navbar">
+        <div class="logo">
+            <a href="index.html">
+                <span class="logo-symbol">✦</span>
+                <h1>AstralPulse</h1>
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="tarot.html">Tarot</a></li>
+                <li><a href="horoscopes.html">Horoscopes</a></li>
+                <li><a href="compatibility.html">Compatibility</a></li>
+                <li><a href="birthchart.html" class="active">Birth Chart</a></li>
+                <li><a href="chat.html">Oracle Chat</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Hero Section -->
+    <section class="hero">
+        <h2>Natal Birth Chart Calculator</h2>
+        <p>Map the exact position of the stars at the precise moment of your birth.</p>
+    </section>
+
+    <!-- Birth Chart Form Section -->
+    <main class="container">
+        <div class="section-title">
+            <h2>Enter Your Birth Details</h2>
+            <p>Provide your celestial coordinates to uncover your Sun, Moon, and Ascendant signs.</p>
+        </div>
+
+        <div class="compatibility-card">
+            <div class="birth-form-grid">
+
+                <!-- Name -->
+                <div class="select-group">
+                    <label for="birth-name">Your Name</label>
+                    <input type="text" id="birth-name" placeholder="Enter your name" class="birth-input">
+                </div>
+
+                <!-- Date of Birth -->
+                <div class="select-group">
+                    <label for="birth-date">Date of Birth</label>
+                    <input type="date" id="birth-date" class="birth-input">
+                </div>
+
+                <!-- Time of Birth -->
+                <div class="select-group">
+                    <label for="birth-time">Time of Birth (Approx.)</label>
+                    <input type="time" id="birth-time" class="birth-input" value="12:00">
+                </div>
+
+                <!-- Birth Place -->
+                <div class="select-group">
+                    <label for="birth-place">Birth City & Country</label>
+                    <input type="text" id="birth-place" placeholder="e.g. Los Angeles, USA" class="birth-input">
+                </div>
+
+            </div>
+
+            <button class="cta-button calculate-btn" onclick="calculateBirthChart()" style="margin-top: 20px;">Calculate Birth Chart</button>
+
+            <!-- Results Display Area -->
+            <div id="birthchart-result" class="result-box">
+                <h3 id="chart-result-title">Your Celestial Blueprint</h3>
+
+                <div class="chart-results-stack">
+                    <div class="h-text-box" style="text-align: left; margin-top: 15px;">
+                        <h3 id="sun-sign-title">☀️ Sun Sign (Core Identity)</h3>
+                        <p id="sun-desc">Analyzing solar position...</p>
+                    </div>
+                    <div class="h-text-box" style="text-align: left;">
+                        <h3 id="moon-sign-title">🌙 Moon Sign (Inner Emotions)</h3>
+                        <p id="moon-desc">Analyzing lunar phase...</p>
+                    </div>
+                    <div class="h-text-box" style="text-align: left;">
+                        <h3 id="rising-sign-title">⭐ Ascendant / Rising Sign (Outer Persona)</h3>
+                        <p id="rising-desc">Calculating horizon alignment...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 AstralPulse. All rights reserved. For entertainment and spiritual growth.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
