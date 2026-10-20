@@ -1,0 +1,33 @@
+name: Update Daily Horoscopes
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-horoscopes:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Generate Horoscopes via Gemini AI
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python update_horoscopes.py
+
+      - name: Commit and Push Updated Horoscopes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action Bot"
+          git add data/horoscopes.json
+          git diff-index --quiet HEAD || git commit -m "auto: update daily horoscopes via AI [skip ci]"
+          git push
