@@ -4,7 +4,7 @@ import datetime
 from google import genai
 
 # Anahtarını buraya doğrudan yazabilirsin
-GEMINI_API_KEY = "AQ.Ab8RN6Jtr2xM3ItY8cDme-ZB_sNX4SRF_fjAKHqQR2q94yWZKw"
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
 
 def generate_horoscopes():
