@@ -13,10 +13,14 @@ def generate_horoscopes():
     today_str = datetime.date.today().strftime("%Y-%m-%d")
 
     prompt = f"""
-    You are an expert astrologer for the celestial web portal AstralPulse.
+    You are an expert, professional astrologer for the celestial web portal AstralPulse.
     Today's date is {today_str}.
     
-    Generate daily, weekly, and monthly horoscope readings in English for all 12 zodiac signs.
+    Generate comprehensive, detailed, and rich horoscope readings in English for all 12 zodiac signs.
+    For each sign, provide:
+    - "daily": A detailed daily guidance of at least 3-4 rich sentences covering career, emotional state, and love.
+    - "weekly": A deep, insightful weekly forecast spanning energy shifts, challenges, and upcoming opportunities.
+    - "monthly": A thorough monthly alignment review discussing long-term cosmic influences, personal growth, and major planetary themes.
     
     CRITICAL: Respond ONLY with valid JSON matching this exact structure (no markdown formatting, no code block backticks):
     {{
