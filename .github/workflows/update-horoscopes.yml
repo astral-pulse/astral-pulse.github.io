@@ -19,11 +19,16 @@ jobs:
         with:
           python-version: '3.x'
 
+      # BURAYI EKLE: Python paketini GitHub sunucusuna yüklüyoruz
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install google-genai
+
       - name: Generate Horoscopes via Gemini AI
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          # Bulunduğumuz dizini ve dosyaları listeleyip kontrol edelim
           pwd
           ls -la
           python update_horoscopes.py
