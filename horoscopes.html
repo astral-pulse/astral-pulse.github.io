@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AstralPulse - Daily Horoscopes</title>
-    <link href="[https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Quicksand:wght@400;600&display=swap](https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Quicksand:wght@400;600&display=swap)" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
         .horoscope-timeframe-tabs {
             display: flex;
             justify-content: center;
             gap: 1rem;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
         }
 
         .tab-btn {
@@ -33,28 +33,28 @@
                 box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
             }
 
+        /* Zodiac Selection Grid */
         .zodiac-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.8rem;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
             margin-bottom: 3rem;
         }
 
-        .zodiac-card {
+        .zodiac-card-select {
             background: linear-gradient(135deg, rgba(23, 11, 41, 0.9), rgba(11, 6, 18, 0.95));
             border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 12px;
-            padding: 1.8rem;
+            padding: 1.5rem 1rem;
             text-align: center;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-            .zodiac-card:hover {
+            .zodiac-card-select:hover {
                 transform: translateY(-5px);
                 border-color: #d4af37;
-                box-shadow: 0 10px 25px rgba(212, 175, 55, 0.25);
+                box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
             }
 
         .zodiac-symbol {
@@ -66,7 +66,7 @@
 
         .zodiac-name {
             font-family: 'Cinzel', serif;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: #ffffff;
             margin-bottom: 0.2rem;
         }
@@ -74,30 +74,74 @@
         .zodiac-dates {
             font-size: 0.85rem;
             color: #a090c0;
-            margin-bottom: 1rem;
         }
+
+        /* Detailed Single View Box */
+        .selected-horoscope-view {
+            max-width: 750px;
+            margin: 0 auto 3rem auto;
+            background: linear-gradient(135deg, rgba(23, 11, 41, 0.95), rgba(11, 6, 18, 0.98));
+            border: 1px solid #d4af37;
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.25);
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .back-btn {
+            background: transparent;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            color: #d4af37;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            cursor: pointer;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+            .back-btn:hover {
+                background: rgba(212, 175, 55, 0.2);
+                color: #fff;
+            }
 
         .zodiac-element-tag {
             display: inline-block;
-            padding: 0.2rem 0.8rem;
+            padding: 0.3rem 1rem;
             background: rgba(212, 175, 55, 0.15);
             border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 15px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: #e5c158;
-            margin-bottom: 1.2rem;
+            margin: 0.8rem 0 1.5rem 0;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
         .zodiac-reading {
             font-family: 'Quicksand', sans-serif;
-            color: #e0d8f0;
-            font-size: 0.95rem;
-            line-height: 1.6;
+            color: #f0eaf8;
+            font-size: 1.1rem;
+            line-height: 1.8;
             text-align: left;
             border-top: 1px solid rgba(212, 175, 55, 0.2);
-            padding-top: 1rem;
+            padding-top: 1.5rem;
+            margin-top: 1rem;
         }
 
         .last-updated-badge {
@@ -126,7 +170,6 @@
                 <li><a href="horoscopes.html" class="active">Horoscopes</a></li>
                 <li><a href="compatibility.html">Compatibility</a></li>
                 <li><a href="birthchart.html">Birth Chart</a></li>
-                
             </ul>
         </nav>
     </header>
@@ -134,7 +177,7 @@
     <!-- 2. Hero Section -->
     <section class="hero">
         <h2>Celestial Horoscopes</h2>
-        <p>Explore cosmic alignment and daily astrological insights tailored for your sign.</p>
+        <p>Choose your zodiac sign to unlock detailed cosmic guidance and astrological insights.</p>
     </section>
 
     <!-- 3. Main Container -->
@@ -150,6 +193,17 @@
             Updating cosmic energies...
         </div>
 
+        <!-- Single Selected Sign View -->
+        <div class="selected-horoscope-view" id="singleView">
+            <button class="back-btn" onclick="resetToGrid()">← Choose Another Sign</button>
+            <div class="zodiac-symbol" id="detailSymbol"></div>
+            <div class="zodiac-name" id="detailName"></div>
+            <div class="zodiac-dates" id="detailDates"></div>
+            <span class="zodiac-element-tag" id="detailElement"></span>
+            <div class="zodiac-reading" id="detailReading"></div>
+        </div>
+
+        <!-- All Zodiac Signs Selector Grid -->
         <div class="zodiac-grid" id="zodiacGrid"></div>
 
     </main>
@@ -162,6 +216,7 @@
     <script>
         let horoscopeData = null;
         let currentTimeframe = 'daily';
+        let selectedSignKey = null;
 
         async function loadHoroscopes() {
             try {
@@ -172,7 +227,7 @@
                 document.getElementById('lastUpdatedBadge').innerText =
                     `✦ Cosmic Readings Updated: ${horoscopeData.lastUpdated} ✦`;
 
-                renderZodiacCards();
+                renderGrid();
             } catch (error) {
                 console.error('Error loading horoscope data:', error);
                 document.getElementById('zodiacGrid').innerHTML =
@@ -187,10 +242,12 @@
             tabs.forEach(tab => tab.classList.remove('active'));
             if (btnElement) btnElement.classList.add('active');
 
-            renderZodiacCards();
+            if (selectedSignKey) {
+                renderSingleSign(selectedSignKey);
+            }
         }
 
-        function renderZodiacCards() {
+        function renderGrid() {
             if (!horoscopeData || !horoscopeData.signs) return;
 
             const grid = document.getElementById('zodiacGrid');
@@ -198,23 +255,46 @@
 
             Object.keys(horoscopeData.signs).forEach(key => {
                 const sign = horoscopeData.signs[key];
-                const reading = sign[currentTimeframe] || sign.daily;
 
                 const card = document.createElement('div');
-                card.className = 'zodiac-card';
+                card.className = 'zodiac-card-select';
+                card.onclick = () => selectSign(key);
 
                 card.innerHTML = `
-                    <div class="zodiac-symbol">${sign.symbol}</div>
-                    <div class="zodiac-name">${sign.name}</div>
-                    <div class="zodiac-dates">${sign.dates}</div>
-                    <span class="zodiac-element-tag">${sign.element}</span>
-                    <div class="zodiac-reading">
-                        ${reading}
-                    </div>
-                `;
+                        <div class="zodiac-symbol">${sign.symbol}</div>
+                        <div class="zodiac-name">${sign.name}</div>
+                        <div class="zodiac-dates">${sign.dates}</div>
+                    `;
 
                 grid.appendChild(card);
             });
+        }
+
+        function selectSign(key) {
+            selectedSignKey = key;
+            document.getElementById('zodiacGrid').style.display = 'none';
+            document.getElementById('singleView').style.display = 'block';
+            renderSingleSign(key);
+            window.scrollTo({ top: 300, behavior: 'smooth' });
+        }
+
+        function renderSingleSign(key) {
+            const sign = horoscopeData.signs[key];
+            if (!sign) return;
+
+            const reading = sign[currentTimeframe] || sign.daily || 'No guidance available for this timeframe.';
+
+            document.getElementById('detailSymbol').innerText = sign.symbol;
+            document.getElementById('detailName').innerText = sign.name;
+            document.getElementById('detailDates').innerText = sign.dates;
+            document.getElementById('detailElement').innerText = sign.element;
+            document.getElementById('detailReading').innerHTML = reading;
+        }
+
+        function resetToGrid() {
+            selectedSignKey = null;
+            document.getElementById('singleView').style.display = 'none';
+            document.getElementById('zodiacGrid').style.display = 'grid';
         }
 
         window.addEventListener('DOMContentLoaded', loadHoroscopes);
