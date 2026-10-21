@@ -160,7 +160,7 @@
         <div class="logo">
             <a href="index.html">
                 <span class="logo-symbol">✦</span>
-                <h1>ASTRALPULSE</h1>
+                <h1><span class="brand-cap">A</span>STRAL<span class="brand-cap">P</span>ULSE</h1>
             </a>
         </div>
         <nav>
@@ -206,11 +206,20 @@
         <!-- All Zodiac Signs Selector Grid -->
         <div class="zodiac-grid" id="zodiacGrid"></div>
 
+        <!-- Google AdSense Banner Slot -->
+        <div class="ad-slot-container">
+            <span class="ad-disclaimer">Advertisement</span>
+            <div class="ad-placeholder">
+                <!-- Google AdSense script unit will be placed here -->
+                ✦ Responsive Cosmic Ad Space ✦
+            </div>
+        </div>
+
     </main>
 
     <!-- 4. Footer -->
     <footer>
-        <p>&copy; 2026 AstralPulse - Your Mystic Guide. All rights reserved.</p>
+        <p>&copy; 2026 AstralPulse. All rights reserved. <a href="privacy.html" style="color: #d4af37; text-decoration: underline; margin-left: 10px;">Privacy Policy</a> | <a href="terms.html" style="color: #d4af37; text-decoration: underline;">Terms of Service</a></p>
     </footer>
 
     <script>
@@ -261,10 +270,10 @@
                 card.onclick = () => selectSign(key);
 
                 card.innerHTML = `
-                        <div class="zodiac-symbol">${sign.symbol}</div>
-                        <div class="zodiac-name">${sign.name}</div>
-                        <div class="zodiac-dates">${sign.dates}</div>
-                    `;
+                                <div class="zodiac-symbol">${sign.symbol}</div>
+                                <div class="zodiac-name">${sign.name}</div>
+                                <div class="zodiac-dates">${sign.dates}</div>
+                            `;
 
                 grid.appendChild(card);
             });

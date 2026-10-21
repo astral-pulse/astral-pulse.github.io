@@ -54,6 +54,11 @@ body {
     font-weight: 700;
 }
 
+    /* A ve P harflerini büyük göstermek için eklenen kural[cite: 6] */
+    .logo h1 span.brand-cap {
+        font-size: 1.18em;
+    }
+
 .navbar nav ul {
     display: flex;
     list-style: none;
@@ -730,7 +735,7 @@ footer {
         flex-direction: column;
         align-items: center;
         gap: 25px;
-    }a
+    }
 
     .tarot-item-wrapper {
         width: 100%;
@@ -764,5 +769,46 @@ footer {
     .chat-window {
         height: 400px;
         border-radius: 12px;
+    }
+    /* ==========================================================================
+   AstralPulse - AdSense Banner & Native Ad Containers
+   ========================================================================== */
+    .ad-slot-container {
+        width: 100%;
+        max-width: 728px;
+        margin: 35px auto 15px auto;
+        padding: 12px;
+        background: rgba(26, 15, 46, 0.4);
+        border: 1px dashed rgba(212, 175, 55, 0.25);
+        border-radius: 12px;
+        text-align: center;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+    }
+
+        .ad-slot-container:hover {
+            border-color: rgba(212, 175, 55, 0.5);
+            background: rgba(26, 15, 46, 0.6);
+        }
+
+    .ad-disclaimer {
+        font-size: 0.7rem;
+        color: #a594fd;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        margin-bottom: 8px;
+        display: block;
+        opacity: 0.8;
+    }
+
+    /* AdSense Onay Sürecindeki Önizleme / Placeholder Görünümü */
+    .ad-placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 90px;
+        color: #8c7abf;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
     }
 }
