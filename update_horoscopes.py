@@ -24,7 +24,7 @@ def generate_horoscopes():
     - "weekly": A deep, insightful weekly forecast spanning energy shifts, challenges, and upcoming opportunities.
     - "monthly": A thorough monthly alignment review discussing long-term cosmic influences, personal growth, and major planetary themes.
 
-    CRITICAL: Respond ONLY with valid JSON matching this exact structure (no markdown formatting, no code block backticks):
+    CRITICAL: Respond ONLY with valid JSON matching this exact structure:
     {{
       "lastUpdated": "{today_str}",
       "signs": {{
@@ -145,9 +145,13 @@ def generate_horoscopes():
 
   for attempt in range(max_retries):
     try:
+      # Yapılandırılmış çıktı ile JSON garantisi
       response = client.models.generate_content(
           model="gemini-3.8-flash",
           contents=prompt,
+          config={
+              "response_mime_type": "application/json",
+          },
       )
 
       text_response = response.text.strip()
@@ -172,7 +176,7 @@ def generate_horoscopes():
       return
 
     except Exception as e:
-      print(f"Bağlantı hatası ({e}), {attempt + 1}. tekrar deneniyor...")
+      print(f"Hata oluştu ({e}), {attempt + 1}. tekrar deneniyor...")
       if attempt == max_retries - 1:
         raise e
       time.sleep(5)
