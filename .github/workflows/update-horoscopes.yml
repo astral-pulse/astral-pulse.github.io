@@ -39,4 +39,5 @@ jobs:
           git config --local user.name "GitHub Action Bot"
           git add data/horoscopes.json
           git diff-index --quiet HEAD || git commit -m "auto: update daily horoscopes via AI [skip ci]"
+          git pull origin main --rebase
           git push
