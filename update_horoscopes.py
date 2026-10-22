@@ -1,20 +1,20 @@
-import os
-import json
 import datetime
+import json
+import os
+import time
 from google import genai
 
-# Anahtarını buraya doğrudan yazabilirsin
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
 
 def generate_horoscopes():
-    if not GEMINI_API_KEY:
-        print("Error: API anahtarı tanımlı değil.")
-        return
+  if not GEMINI_API_KEY:
+    print("Error: API anahtarı tanımlı değil.")
+    return
 
-    today_str = datetime.date.today().strftime("%Y-%m-%d")
+  today_str = datetime.date.today().strftime("%Y-%m-%d")
 
-    prompt = f"""
+  prompt = f"""
     You are an expert, professional astrologer for the celestial web portal AstralPulse.
     Today's date is {today_str}.
 
@@ -140,39 +140,43 @@ def generate_horoscopes():
     }}
     """
 
+  client = genai.Client(api_key=GEMINI_API_KEY)
+  max_retries = 3
+
+  for attempt in range(max_retries):
     try:
-        # Resmi SDK ile istemciyi başlatıyoruz
-        client = genai.Client(api_key=GEMINI_API_KEY)
+      response = client.models.generate_content(
+          model="gemini-2.5-flash",
+          contents=prompt,
+      )
 
-        # En güncel modeli çağırıyoruz
-        response = client.models.generate_content(
-            model='gemini-3.8-flash',
-            contents=prompt,
-        )
+      text_response = response.text.strip()
 
-        text_response = response.text.strip()
+      if text_response.startswith("```json"):
+        text_response = text_response[7:]
+      if text_response.startswith("```"):
+        text_response = text_response[3:]
+      if text_response.endswith("```"):
+        text_response = text_response[:-3]
 
-        if text_response.startswith("```json"):
-            text_response = text_response[7:]
-        if text_response.startswith("```"):
-            text_response = text_response[3:]
-        if text_response.endswith("```"):
-            text_response = text_response[:-3]
+      text_response = text_response.strip()
 
-        text_response = text_response.strip()
+      parsed_json = json.loads(text_response)
 
-        parsed_json = json.loads(text_response)
+      os.makedirs("data", exist_ok=True)
 
-        os.makedirs("data", exist_ok=True)
+      with open("data/horoscopes.json", "w", encoding="utf-8") as f:
+        json.dump(parsed_json, f, ensure_ascii=False, indent=2)
 
-        with open("data/horoscopes.json", "w", encoding="utf-8") as f:
-            json.dump(parsed_json, f, ensure_ascii=False, indent=2)
-
-        print(f"Horoscopes updated successfully for {today_str}!")
+      print(f"Horoscopes updated successfully for {today_str}!")
+      return
 
     except Exception as e:
-        print(f"Failed to generate horoscopes: {e}")
+      print(f"Bağlantı hatası ({e}), {attempt + 1}. tekrar deneniyor...")
+      if attempt == max_retries - 1:
+        raise e
+      time.sleep(5)
 
 
 if __name__ == "__main__":
-    generate_horoscopes()
+  generate_horoscopes()
